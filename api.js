@@ -7,10 +7,12 @@ app.use(bodyParser.json())
 
 app.use(function (req, res, next) {
 
+  const corsWhiteList=['https://loknath-tourism-app.vercel.app', 'http://localhost:3000', 'https://indian-tourism-app.herokuapp.com']
+  if(corsWhiteList.indexOf(req.headers.origin) !== -1){
   // Website you wish to allow to connect
 //   res.setHeader('Access-Control-Allow-Origin', 'https://loknath-tourism-app.vercel.app');
 //   res.setHeader('Access-Control-Allow-Origin',  'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Origin', 'https://loknath-tourism-app.vercel.app', 'http://localhost:3000', 'https://indian-tourism-app.herokuapp.com');
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -23,6 +25,7 @@ app.use(function (req, res, next) {
   //res.setHeader('Access-Control-Allow-Credentials', true);
 
   // Pass to next layer of middleware
+  }
   next();
 });
 
